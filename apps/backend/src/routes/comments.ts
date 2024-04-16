@@ -49,9 +49,9 @@ CRouter.post('/reply', async (req, res, next) => {
       const topComment = await Comment.findOne({ _id });
       if (topComment) {
         const postId = topComment.postId;
-        await createComment(postId, req.session!.user, comment);
-        //bro how do i get the _id of the comment that was just made
-
+        const reply = await createComment(postId, req.session!.user, comment);
+        topComment.replies = [...topComment.replies, reply._id];
+        await topComment.save();
       }
 
   
