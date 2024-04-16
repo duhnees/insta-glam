@@ -7,8 +7,19 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      // this proxy routes all requests to `/api` to the backend (also /api)
-      '/api': {
+      '/account': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/post': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/comment': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/notif': {
         target: 'http://localhost:8000',
         changeOrigin: true,
       },
