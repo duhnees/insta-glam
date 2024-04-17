@@ -3,6 +3,7 @@ import express from 'express';
 import z from 'zod';
 import { createUser } from '../lib/account';
 import { User } from '../models';
+import { requireAuth } from '../middlewares/require-auth';
 
 const AuthRouter = express.Router();
 
@@ -65,7 +66,7 @@ AuthRouter.post('/login', async (req, res, next) => {
     }
   });
 
-AuthRouter.post('/logout', async (req, res, next) => {
+AuthRouter.post('/logout', requireAuth, async (req, res, next) => {
   try {
     req.session = null;
     res.status(200).send('Logout successful!');

@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
 
-enum NotificationType {
+export enum NotificationType {
     Like = 'like',
     Follow = 'follow',
     Comment = 'comment',
     Mention = 'mention'
-  }
+}
 
 export interface INotif {
   receiver: string;

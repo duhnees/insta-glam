@@ -11,14 +11,14 @@ export async function createPost(author: string, draft: boolean, face: number, t
     draft,
     numLikes,
     numComments,
-    hat: hat || 0,
-    hair: hair || 0,
+    hat: hat || -1,
+    hair: hair || -1,
     face,
     top,
     pants,
-    shoes: shoes || 0,
-    accessory1: accessory1 || 0,
-    accessory2: accessory2 || 0,
+    shoes: shoes || -1,
+    accessory1: accessory1 || -1,
+    accessory2: accessory2 || -1,
   });
 
   await newPost.save();

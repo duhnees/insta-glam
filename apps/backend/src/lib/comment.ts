@@ -12,4 +12,5 @@ export async function createComment(postId: string, author: string, comment: str
   });
 
   await newComment.save();
+  return newComment;
 }

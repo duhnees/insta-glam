@@ -1,26 +1,27 @@
-//reply to comment
-//get all comments on a post
-//overarching route will be /comment
 import express from 'express';
 import z from 'zod';
 import { createComment } from '../lib/comment';
 import { Comment } from '../models';
+import { requireAuth } from '../middlewares/require-auth';
 
 
 const CRouter = express.Router();
 
 const addCSchema = z.object({
-    postId: z.string(),
-    comment: z.string(),
+  postId: z.string(),
+  comment: z.string(),
 });
 
 const replyCSchema = z.object({
-    _id: z.string(),
-    author: z.string(),
-    comment: z.string(),
+  _id: z.string(),
+  comment: z.string(),
 });
 
-CRouter.post('/add', async (req, res, next) => {
+const getCSchema = z.object({
+  postId: z.string()
+})
+
+CRouter.post('/add', requireAuth, async (req, res, next) => {
     const zodResult = addCSchema.safeParse(req.body);
     if (!zodResult.success) {
       res.status(400).send('Invalid input!');
@@ -37,7 +38,7 @@ CRouter.post('/add', async (req, res, next) => {
     }
 });
 
-CRouter.post('/reply', async (req, res, next) => {
+CRouter.post('/reply', requireAuth, async (req, res, next) => {
     const zodResult = replyCSchema.safeParse(req.body);
     if (!zodResult.success) {
       res.status(400).send('Invalid input!');
@@ -45,12 +46,12 @@ CRouter.post('/reply', async (req, res, next) => {
     }
   
     try {
-      const { _id, author, comment } = zodResult.data;
+      const { _id, comment } = zodResult.data;
       const topComment = await Comment.findOne({ _id });
       if (topComment) {
         const postId = topComment.postId;
         const reply = await createComment(postId, req.session!.user, comment);
-        topComment.replies = [...topComment.replies, reply._id];
+        topComment.replies = [...topComment.replies, reply._id.toString()];
         await topComment.save();
       }
 
@@ -60,3 +61,23 @@ CRouter.post('/reply', async (req, res, next) => {
         res.status(500).send('Server error!');
     }
 });
+
+//get all comments on a specific post based on its PostId
+CRouter.post('/getComments', async (req, res, next) => {
+  const zodResult = getCSchema.safeParse(req.body);
+  if (!zodResult.success) {
+    res.status(400).send('Invalid input!');
+    return;
+  }
+
+  try {
+    const { postId } = zodResult.data;
+    const comments = await Comment.find({ postId });
+    
+    res.status(200).json(comments);
+  } catch (err) {
+      res.status(500).send('Server error!');
+  }
+});
+
+export default CRouter;

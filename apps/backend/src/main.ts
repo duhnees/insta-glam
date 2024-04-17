@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 import AuthRouter from './routes/account';
+import CRouter from './routes/comments';
+import NRouter from './routes/notifications';
 
 
 // read environment variables from .env file
@@ -36,6 +38,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/account', AuthRouter);
+app.use('/comment', CRouter);
+app.use('/notif', NRouter);
+
 
 
 // listen
