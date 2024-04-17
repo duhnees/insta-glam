@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 import AuthRouter from './routes/account';
 import CRouter from './routes/comments';
 import NRouter from './routes/notifications';
+import { requireAuth } from './middlewares/require-auth';
+import PRouter from './routes/posts';
 
 
 // read environment variables from .env file
@@ -30,7 +32,6 @@ app.use(
   }),
 );
 
-//from class demo
 app.use((req, res, next) => {
   // eslint-disable-next-line no-console
   console.log(req.session);
@@ -40,7 +41,8 @@ app.use((req, res, next) => {
 app.use('/account', AuthRouter);
 app.use('/comment', CRouter);
 app.use('/notif', NRouter);
-
+app.use('/post', PRouter);
+app.use(requireAuth);
 
 
 // listen
