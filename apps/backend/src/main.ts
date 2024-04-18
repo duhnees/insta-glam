@@ -7,6 +7,7 @@ import CRouter from './routes/comments';
 import NRouter from './routes/notifications';
 import { requireAuth } from './middlewares/require-auth';
 import PRouter from './routes/posts';
+import { errorHandler } from './middlewares/error-handler';
 
 
 // read environment variables from .env file
@@ -43,6 +44,7 @@ app.use('/comment', CRouter);
 app.use('/notif', NRouter);
 app.use('/post', PRouter);
 app.use(requireAuth);
+app.use(errorHandler);
 
 
 // listen

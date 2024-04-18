@@ -23,7 +23,7 @@ const getNSchema = z.object({
 NRouter.post('/add', requireAuth, async (req, res, next) => {
     const zodResult = addNSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -33,7 +33,7 @@ NRouter.post('/add', requireAuth, async (req, res, next) => {
   
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -41,7 +41,7 @@ NRouter.post('/add', requireAuth, async (req, res, next) => {
 NRouter.post('/getNotifs', async (req, res, next) => {
   const zodResult = getNSchema.safeParse(req.body);
   if (!zodResult.success) {
-    res.status(400).send('Invalid input!');
+    next({ statusCode: 400, message: 'Invalid input!' });
     return;
   }
 
@@ -51,7 +51,7 @@ NRouter.post('/getNotifs', async (req, res, next) => {
     
     res.status(200).json(notifs);
   } catch (err) {
-      res.status(500).send('Server error!');
+    next({ statusCode: 500, message: 'Server error!' });
   }
 });
 

@@ -45,7 +45,7 @@ const getPSchema = z.object({
 PRouter.post('/add', requireAuth, async (req, res, next) => {
     const zodResult = addPSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -55,7 +55,7 @@ PRouter.post('/add', requireAuth, async (req, res, next) => {
   
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -63,7 +63,7 @@ PRouter.post('/add', requireAuth, async (req, res, next) => {
 PRouter.post('/edit', requireAuth, async (req, res, next) => {
     const zodResult = editPSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -85,7 +85,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
 
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -94,7 +94,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
 PRouter.post('/interact', requireAuth, async (req, res, next) => {
     const zodResult = interactPSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -109,7 +109,7 @@ PRouter.post('/interact', requireAuth, async (req, res, next) => {
 
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -117,7 +117,7 @@ PRouter.post('/interact', requireAuth, async (req, res, next) => {
 PRouter.post('/getPostsByUser', async (req, res, next) => {
   const zodResult = getPSchema.safeParse(req.body);
   if (!zodResult.success) {
-    res.status(400).send('Invalid input!');
+    next({ statusCode: 400, message: 'Invalid input!' });
     return;
   }
 
@@ -127,7 +127,7 @@ PRouter.post('/getPostsByUser', async (req, res, next) => {
     
     res.status(200).json(posts);
   } catch (err) {
-      res.status(500).send('Server error!');
+    next({ statusCode: 500, message: 'Server error!' });
   }
 });
 
@@ -135,7 +135,7 @@ PRouter.post('/getPostsByUser', async (req, res, next) => {
 PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
     const zodResult = getPSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -146,11 +146,11 @@ PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
         const posts = await Post.find({ author: { $in: user.following } });
         res.status(200).json(posts);
       } else {
-        res.status(400).send('User does not exist!');
+        next({ statusCode: 400, message: 'User does not exist!' });
         return;
       }
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -160,7 +160,7 @@ PRouter.get('', async (req, res, next) => {
       const posts = await Post.find();
       res.status(200).json(posts);
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 

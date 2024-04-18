@@ -20,7 +20,7 @@ const followSchema = z.object({
 AuthRouter.post('/signup', async (req, res, next) => {
   const zodResult = signupSchema.safeParse(req.body);
   if (!zodResult.success) {
-    res.status(400).send('Invalid input!');
+    next({ statusCode: 400, message: 'Invalid input!' });
     return;
   }
 
@@ -28,7 +28,7 @@ AuthRouter.post('/signup', async (req, res, next) => {
     const { username, password } = zodResult.data;
     const user = await User.findOne({ username });
     if (user) {
-      res.status(400).send('User already exists!');
+      next({ statusCode: 400, message: 'User already exists!' });
       return;
     }
     await createUser(username, password);
@@ -36,15 +36,15 @@ AuthRouter.post('/signup', async (req, res, next) => {
     req.session!.user = username;
     res.status(200).send('OK!');
   } catch(err) {
-      res.status(500).send('Server error!');
+    next({ statusCode: 500, message: 'Server error!' });
   }
 });
 
 AuthRouter.post('/login', async (req, res, next) => {
     const zodResult = signupSchema.safeParse(req.body);
     if (!zodResult.success) {
-        res.status(400).send('Invalid input!');
-        return;
+      next({ statusCode: 400, message: 'Invalid input!' });
+      return;
     }
 
     try {
@@ -56,13 +56,13 @@ AuthRouter.post('/login', async (req, res, next) => {
               req.session!.user = username;
               res.status(200).send('Login successful!');
           } else {
-              res.status(400).send('Wrong username/password!');
-        }
+              next({ statusCode: 400, message: 'Wrong username/password!' });
+          }
       } else {
-          res.status(400).send('Wrong username/password!');
-    }
+          next({ statusCode: 400, message: 'Wrong username/password!' });
+      }
     } catch(err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
   });
 
@@ -71,7 +71,7 @@ AuthRouter.post('/logout', requireAuth, async (req, res, next) => {
     req.session = null;
     res.status(200).send('Logout successful!');
   } catch (err) {
-      res.status(500).send('Server error!');
+    next({ statusCode: 500, message: 'Server error!' });
   }
 });
 
@@ -87,7 +87,7 @@ AuthRouter.get('', async (req, res, next) => {
 AuthRouter.post('/follow', async (req, res, next) => {
     const zodResult = followSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -102,23 +102,23 @@ AuthRouter.post('/follow', async (req, res, next) => {
           await currUser.save();
           await userToFollow.save();
         } else {
-          res.status(400).send('User to follow does not exist!');
+          next({ statusCode: 400, message: 'User to follow does not exist!' });
           return;
         }
       } else {
-          res.status(400).send('Current user does not exist!');
-          return;
+        next({ statusCode: 400, message: 'Current user does not exist!' });
+        return;
       }
       res.status(200).send('OK!');
     } catch(err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
 AuthRouter.post('/unfollow', async (req, res, next) => {
     const zodResult = followSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -133,16 +133,16 @@ AuthRouter.post('/unfollow', async (req, res, next) => {
           await currUser.save();
           await userToUnfollow.save();
         } else {
-          res.status(400).send('User to follow does not exist!');
+          next({ statusCode: 400, message: 'User to follow does not exist!' });
           return;
         }
       } else {
-          res.status(400).send('Current user does not exist!');
-          return;
+        next({ statusCode: 400, message: 'Current user does not exist!' });
+        return;
       }
       res.status(200).send('OK!');
     } catch(err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 

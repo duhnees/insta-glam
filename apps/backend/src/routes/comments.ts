@@ -24,7 +24,7 @@ const getCSchema = z.object({
 CRouter.post('/add', requireAuth, async (req, res, next) => {
     const zodResult = addCSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -34,14 +34,14 @@ CRouter.post('/add', requireAuth, async (req, res, next) => {
   
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
 CRouter.post('/reply', requireAuth, async (req, res, next) => {
     const zodResult = replyCSchema.safeParse(req.body);
     if (!zodResult.success) {
-      res.status(400).send('Invalid input!');
+      next({ statusCode: 400, message: 'Invalid input!' });
       return;
     }
   
@@ -58,7 +58,7 @@ CRouter.post('/reply', requireAuth, async (req, res, next) => {
   
       res.status(200).send('OK!');
     } catch (err) {
-        res.status(500).send('Server error!');
+      next({ statusCode: 500, message: 'Server error!' });
     }
 });
 
@@ -66,7 +66,7 @@ CRouter.post('/reply', requireAuth, async (req, res, next) => {
 CRouter.post('/getComments', async (req, res, next) => {
   const zodResult = getCSchema.safeParse(req.body);
   if (!zodResult.success) {
-    res.status(400).send('Invalid input!');
+    next({ statusCode: 400, message: 'Invalid input!' });
     return;
   }
 
@@ -76,7 +76,7 @@ CRouter.post('/getComments', async (req, res, next) => {
     
     res.status(200).json(comments);
   } catch (err) {
-      res.status(500).send('Server error!');
+    next({ statusCode: 500, message: 'Server error!' });
   }
 });
 
