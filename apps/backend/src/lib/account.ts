@@ -9,7 +9,7 @@ export async function createUser(username: string, password: string) {
 
   const salt = await bcrypt.genSalt();
   const numFollowers = 0;
-  const following = [];
+  const following = [username];
   
   const newUser = new User({
     username,

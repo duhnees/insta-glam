@@ -40,7 +40,12 @@ const interactPSchema = z.object({
 
 const getPSchema = z.object({
   username: z.string(),
+  draft: z.boolean(),
 });
+
+const getSinglePSchema = z.object({
+  postId: z.string(),
+})
 
 PRouter.post('/add', requireAuth, async (req, res, next) => {
     const zodResult = addPSchema.safeParse(req.body);
@@ -69,7 +74,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
   
     try {
       const { postId, draft, hat, hair, face, top, pants, shoes, accessory1, accessory2 } = zodResult.data;
-      const post = await Post.findOne({ postId });
+      const post = await Post.findOne({ _id: postId });
       if (post) {
         post.draft = draft;
         post.hat = hat || -1;
@@ -100,14 +105,16 @@ PRouter.post('/interact', requireAuth, async (req, res, next) => {
   
     try {
       const { postId, liked, commented } = zodResult.data;
-      const post = await Post.findOne({ postId });
+      const post = await Post.findOne({ _id: postId });
       if (post) {
         if (liked) post.numLikes++;
         if (commented) post.numComments++;
         await post.save();
+        res.status(200).send('OK!');
+      } else {
+        next({ statusCode: 400, message: 'Post doesnt exist!'});
       }
 
-      res.status(200).send('OK!');
     } catch (err) {
       next({ statusCode: 500, message: 'Server error!' });
     }
@@ -122,8 +129,8 @@ PRouter.post('/getPostsByUser', async (req, res, next) => {
   }
 
   try {
-    const { username } = zodResult.data;
-    const posts = await Post.find({ author: username });
+    const { username, draft } = zodResult.data;
+    const posts = await Post.find({ author: username, draft: draft });
     
     res.status(200).json(posts);
   } catch (err) {
@@ -140,10 +147,10 @@ PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
     }
   
     try {
-      const { username } = zodResult.data;
+      const { username, draft } = zodResult.data;
       const user = await User.findOne({ username });
       if (user) {
-        const posts = await Post.find({ author: { $in: user.following } });
+        const posts = await Post.find({ author: { $in: user.following } , draft: draft});
         res.status(200).json(posts);
       } else {
         next({ statusCode: 400, message: 'User does not exist!' });
@@ -157,11 +164,29 @@ PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
 //get all posts globally
 PRouter.get('', async (req, res, next) => {
     try {
-      const posts = await Post.find();
+      const posts = await Post.find({draft: false});
       res.status(200).json(posts);
     } catch (err) {
       next({ statusCode: 500, message: 'Server error!' });
     }
+});
+
+//get single post based on PostId
+PRouter.post('/getSinglePost', async (req, res, next) => {
+  const zodResult = getSinglePSchema.safeParse(req.body);
+  if (!zodResult.success) {
+    next({ statusCode: 400, message: 'Invalid input!' });
+    return;
+  }
+
+  try {
+    const { postId } = zodResult.data;
+    const post = await Post.findOne({ _id: postId });
+    
+    res.status(200).json(post);
+  } catch (err) {
+    next({ statusCode: 500, message: 'Server error!' });
+  }
 });
 
 export default PRouter;

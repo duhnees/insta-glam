@@ -15,7 +15,11 @@ const signupSchema = z.object({
 const followSchema = z.object({
   follower: z.string(),
   following: z.string(),
-})
+});
+
+const getUSchema = z.object({
+  username: z.string(),
+});
 
 AuthRouter.post('/signup', async (req, res, next) => {
   const zodResult = signupSchema.safeParse(req.body);
@@ -93,8 +97,8 @@ AuthRouter.post('/follow', async (req, res, next) => {
   
     try {
       const { follower, following } = zodResult.data;
-      const currUser = await User.findOne({ follower });
-      const userToFollow = await User.findOne({ following });
+      const currUser = await User.findOne({ username: follower });
+      const userToFollow = await User.findOne({ username: following });
       if (currUser) {
         if (userToFollow) {
           currUser.following = [...currUser.following, userToFollow.username];
@@ -124,8 +128,8 @@ AuthRouter.post('/unfollow', async (req, res, next) => {
   
     try {
       const { follower, following } = zodResult.data;
-      const currUser = await User.findOne({ follower });
-      const userToUnfollow = await User.findOne({ following });
+      const currUser = await User.findOne({ username: follower });
+      const userToUnfollow = await User.findOne({ username: following });
       if (currUser) {
         if (userToUnfollow) {
           currUser.following = currUser.following.filter(username => username !== following);
@@ -144,6 +148,29 @@ AuthRouter.post('/unfollow', async (req, res, next) => {
     } catch(err) {
       next({ statusCode: 500, message: 'Server error!' });
     }
+});
+
+//get profile information based on username
+AuthRouter.post('/getUser', async (req, res, next) => {
+  const zodResult = getUSchema.safeParse(req.body);
+  if (!zodResult.success) {
+    next({ statusCode: 400, message: 'Invalid input!' });
+    return;
+  }
+
+  try {
+    const { username } = zodResult.data;
+    const user = await User.findOne({ username });
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      next({ statusCode: 400, message: 'Current user does not exist!' });
+      return;
+    }
+    res.status(200).send('OK!');
+  } catch(err) {
+    next({ statusCode: 500, message: 'Server error!' });
+  }
 });
 
 export default AuthRouter;
