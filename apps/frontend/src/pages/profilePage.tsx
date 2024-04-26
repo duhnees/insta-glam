@@ -4,12 +4,11 @@ import Profile from "../components/profile";
 export default function ProfilePage() {
     
     const { username } = useParams();
-    const isOwnProfile = true;
 
     return (
         <div>
             <h1>Profile Page</h1>
-            <Profile username={username} isOwnProfile={isOwnProfile} />
+            <Profile username={username} />
         </div>
     );
 }

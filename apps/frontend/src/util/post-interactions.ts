@@ -17,5 +17,19 @@ export const useInteractWithPost = () => {
         }
     };
 
-    return interactPost;
+    const leaveComment = async (_id: string, comment: string) => {
+        try {
+            const response = await axios.post('/comment/add', {
+                postId: _id,
+                comment: comment,
+            });
+            return response.status;
+        } catch (error) {
+            // eslint-disable-next-line no-alert
+            alert(error.response.data.message);
+            return 500;
+        }
+    }
+
+    return {interactPost, leaveComment};
 };

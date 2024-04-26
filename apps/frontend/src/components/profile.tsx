@@ -3,14 +3,12 @@ import { poster } from '../util/poster';
 
 interface ProfileProps {
     username: string;
-    isOwnProfile: boolean;
 }
 
 //TODO: add follow & unfollow, better rendering of posts
-export default function Profile({ username, isOwnProfile }: ProfileProps) {
+export default function Profile({ username }: ProfileProps) {
     const {data: userInfo} = useSWR('/account/getUser', url => poster(url, { username: username }));
     const {data: posts} = useSWR('/post/getPostsByUser', url => poster(url, { username: username, draft: false }));
-    const {data: drafts} = useSWR('/post/getPostsByUser', url => poster(url, { username: username, draft: true }));
 
     const {numFollowers, following} = userInfo || {};
 
@@ -29,16 +27,6 @@ export default function Profile({ username, isOwnProfile }: ProfileProps) {
                             <li key={post._id}>{post._id}</li>
                         ))}
                     </ul>
-                    {isOwnProfile && (
-                        <>
-                            <h3>Drafts</h3>
-                            <ul>
-                                {drafts && drafts.map(draft => (
-                                    <li key={draft._id}>{draft._id}</li>
-                                ))}
-                            </ul>
-                        </>
-                    )}
                 </div>
             }
         </div>

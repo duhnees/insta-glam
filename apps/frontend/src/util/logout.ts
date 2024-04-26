@@ -4,7 +4,7 @@ import axios from 'axios';
 export const useLogout = () => {
     const logout = async () => {
         try {
-            const response = await axios.post('/api/account/logout');
+            const response = await axios.post('/account/logout');
             return response.status;
         } catch (error) {
             // eslint-disable-next-line no-alert
