@@ -8,6 +8,7 @@ import NRouter from './routes/notifications';
 import { requireAuth } from './middlewares/require-auth';
 import PRouter from './routes/posts';
 import { errorHandler } from './middlewares/error-handler';
+import path from 'path';
 
 
 // read environment variables from .env file
@@ -24,6 +25,9 @@ mongoose.connect(MONGODB_URI, {});
 
 const app = express();
 app.use(express.json());
+
+const assetsPath = path.join(__dirname, '../../frontend/src/assets');
+app.use('/assets', express.static(assetsPath));
 
 app.use(
   cookieSession({

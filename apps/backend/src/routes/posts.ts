@@ -9,6 +9,7 @@ const PRouter = express.Router();
 
 const addPSchema = z.object({
   draft: z.boolean(),
+  caption: z.string().optional(),
   hat: z.number().optional(),
   hair: z.number().optional(),
   face: z.number(),
@@ -22,6 +23,7 @@ const addPSchema = z.object({
 const editPSchema = z.object({
   postId: z.string(),
   draft: z.boolean(),
+  caption: z.string().optional(),
   hat: z.number().optional(),
   hair: z.number().optional(),
   face: z.number(),
@@ -55,8 +57,8 @@ PRouter.post('/add', requireAuth, async (req, res, next) => {
     }
   
     try {
-      const { draft, hat, hair, face, top, pants, shoes, accessory1, accessory2 } = zodResult.data;
-      await createPost(req.session!.user, draft, face, top, pants, hat, hair, shoes, accessory1, accessory2);
+      const { draft, caption, hat, hair, face, top, pants, shoes, accessory1, accessory2 } = zodResult.data;
+      await createPost(req.session!.user, draft, face, top, pants, hat, hair, shoes, accessory1, accessory2, caption);
   
       res.status(200).send('OK!');
     } catch (err) {
@@ -73,7 +75,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
     }
   
     try {
-      const { postId, draft, hat, hair, face, top, pants, shoes, accessory1, accessory2 } = zodResult.data;
+      const { postId, draft, caption, hat, hair, face, top, pants, shoes, accessory1, accessory2 } = zodResult.data;
       const post = await Post.findOne({ _id: postId });
       if (post) {
         post.draft = draft;
@@ -85,6 +87,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
         post.shoes = shoes || -1;
         post.accessory1 = accessory1 || -1;
         post.accessory2 = accessory2 || -1;
+        post.caption = caption || post.caption;
         await post.save();
       }
 

@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 
 export interface IPost {
   author: string;
+  caption: string;
   draft: boolean;
   numLikes: number;
   numComments: number;
@@ -17,6 +18,7 @@ export interface IPost {
 
 export const PostSchema = new Schema<IPost>({
   author: { type: String, required: true },
+  caption: { type: String, required: false},
   draft: { type: Boolean, required: true },
   numLikes: { type: Number, required: true },
   numComments: { type: Number, required: true },

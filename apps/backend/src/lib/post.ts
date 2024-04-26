@@ -1,13 +1,14 @@
 import { Post } from '../models';
 
 export async function createPost(author: string, draft: boolean, face: number, top: number, pants:  number, 
-    hat?: number, hair?: number, shoes?: number, accessory1?: number, accessory2?: number) {
+    hat?: number, hair?: number, shoes?: number, accessory1?: number, accessory2?: number, caption?: string) {
 
   const numLikes = 0;
   const numComments = 0;
 
   const newPost = new Post({
     author,
+    caption: caption || '',
     draft,
     numLikes,
     numComments,

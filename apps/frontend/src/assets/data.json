@@ -1,0 +1,10 @@
+{
+    "hats": ["/hats/hat-1.png", "/hats/hat-1.png"],
+    "hairs": ["/hair/hair-1.png", "/hair/hair-1.png"],
+    "faces": ["/faces/face-1.png", "/faces/face-1.png"],
+    "tops": ["/tops/top-1.png", "/tops/top-1.png"],
+    "pants": ["/pants/pant-1.png", "/pants/pant-1.png"],
+    "shoes": [],
+    "acc1s": [],
+    "acc2s": []
+}
