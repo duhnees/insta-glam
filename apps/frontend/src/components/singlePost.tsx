@@ -2,25 +2,25 @@ import useSWR from "swr";
 import { Link, useNavigate } from "react-router-dom";
 import { useInteractWithPost } from "../util/post-interactions";
 import Outfit from "./outfit";
-import axios from "axios";
+import { fetchSinglePost } from "../util/fetcher";
 
 interface PostProps {
     postId: string;
     loggedIn: boolean;
 }
 
-async function fetchSinglePost(url, postId) {
-    try {
-        const response = await axios.post(url, {
-            postId: postId,
-        });
-        return response.data;
-    } catch (error) {
-        // eslint-disable-next-line no-alert
-        alert(error.response.data.message);
-        return 500;
-    }
-  }
+// async function fetchSinglePost(url, postId) {
+//     try {
+//         const response = await axios.post(url, {
+//             postId: postId,
+//         });
+//         return response.data;
+//     } catch (error) {
+//         // eslint-disable-next-line no-alert
+//         alert(error.response.data.message);
+//         return 500;
+//     }
+//   }
 
 //TODO: ADD ACTUAL COMMENT FUNCTIONALITY, FIX RENDERING OF IMAGE
 export default function SinglePost({ postId, loggedIn }: PostProps) {
@@ -48,7 +48,7 @@ export default function SinglePost({ postId, loggedIn }: PostProps) {
                     }}>Comment</button>
                 </div>
                 <div className="float-right">
-                    <Outfit hat={hat} hair={hair} face={face} top={top} pant={pants} shoe={shoes} accessory1={accessory1} accessory2={accessory2} isEditing={true}/>
+                    <Outfit hat={hat} hair={hair} face={face} top={top} pant={pants} shoe={shoes} accessory1={accessory1} accessory2={accessory2} isEditing={false}/>
                 </div>
             </div> }
         </div>

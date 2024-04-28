@@ -20,14 +20,14 @@ export default function Outfit({hat, hair, face, top, pant, shoe, accessory1, ac
 
     return(
         <div>
-            {hat > 0 && <OutfitPiece array={hats} start={hat} alt="Hat" isEditing={isEditing} />}
-            {hair > 0 && <OutfitPiece array={hairs} start={hair} alt="Hair" isEditing={isEditing} />}
+            <OutfitPiece array={hats} start={hat} alt="Hat" isEditing={isEditing} />
+            <OutfitPiece array={hairs} start={hair} alt="Hair" isEditing={isEditing} />
             <OutfitPiece array={faces} start={face} alt="Face" isEditing={isEditing} />
             <OutfitPiece array={tops} start={top} alt="Top" isEditing={isEditing} />
             <OutfitPiece array={pants} start={pant} alt="Pants" isEditing={isEditing} />
-            {shoe > 0 && <OutfitPiece array={shoes} start={shoe} alt="Shoes" isEditing={isEditing} />}
-            {accessory1 > 0 && <OutfitPiece array={acc1s} start={accessory1} alt="Accessory 1" isEditing={isEditing} />}
-            {accessory2 > 0 && <OutfitPiece array={acc2s} start={accessory2} alt="Accessory 2" isEditing={isEditing} />}
+            <OutfitPiece array={shoes} start={shoe} alt="Shoes" isEditing={isEditing} />
+            <OutfitPiece array={acc1s} start={accessory1} alt="Accessory 1" isEditing={isEditing} />
+            <OutfitPiece array={acc2s} start={accessory2} alt="Accessory 2" isEditing={isEditing} />
         </div>
     );
 

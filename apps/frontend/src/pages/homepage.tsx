@@ -2,7 +2,7 @@ import { fetcher } from "../util/fetcher";
 import { useLogout } from "../util/logout";
 import useSWR from "swr";
 import { poster } from "../util/poster";
-import SinglePost from "../components/post";
+import SinglePost from "../components/singlePost";
 import { useNavigate } from "react-router-dom";
 import NewPostButton from "../components/newPostButton";
 
