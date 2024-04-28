@@ -12,8 +12,6 @@ export default function Profile({ username }: ProfileProps) {
 
     const {numFollowers, following} = userInfo || {};
 
-
-
     return (
         <div>
             {userInfo &&

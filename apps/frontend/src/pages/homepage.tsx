@@ -4,11 +4,11 @@ import useSWR from "swr";
 import { poster } from "../util/poster";
 import SinglePost from "../components/post";
 import { useNavigate } from "react-router-dom";
+import NewPostButton from "../components/newPostButton";
 
 export default function Homepage() {
     const {data: allPosts} = useSWR('/post', fetcher);
     const {data: user} = useSWR('/account', fetcher);
-    //const {data: currPosts} = useSWR('/post/getPostsFromFollowing', url => poster(url, { username: user, draft: false }));
     const { data: currPosts } = useSWR(
         user ? '/post/getPostsFromFollowing' : null,
         url => poster(url, { username: user, draft: false })
@@ -43,9 +43,7 @@ export default function Homepage() {
                 ))}
             </div>
             <div className="fixed bottom-0 right-0 p-6">
-                <button className="bg-purple-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    New Post
-                </button>
+                {loggedIn && <NewPostButton /> }
             </div>
         </div>
     );
