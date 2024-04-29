@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { Link, useNavigate } from "react-router-dom";
 import { useInteractWithPost } from "../util/post-interactions";
-import Outfit from "./outfit";
 import { fetchSinglePost } from "../util/fetcher";
+import OutfitComplete from "./outfitComplete";
 
 interface PostProps {
     postId: string;
@@ -48,7 +48,7 @@ export default function SinglePost({ postId, loggedIn }: PostProps) {
                     }}>Comment</button>
                 </div>
                 <div className="float-right">
-                    <Outfit hat={hat} hair={hair} face={face} top={top} pant={pants} shoe={shoes} accessory1={accessory1} accessory2={accessory2} isEditing={false}/>
+                    <OutfitComplete hat={hat} hair={hair} face={face} top={top} pants={pants} shoes={shoes} accessory1={accessory1} accessory2={accessory2} />
                 </div>
             </div> }
         </div>

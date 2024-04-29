@@ -5,10 +5,11 @@ interface PieceProps {
     array: string[],
     start: number,
     alt: string,
-    isEditing: boolean
+    isEditing: boolean,
+    onChange?: (value: number) => void
 }
 
-export default function OutfitPiece({array, start, alt, isEditing} : PieceProps) {
+export default function OutfitPiece({array, start, alt, isEditing, onChange} : PieceProps) {
     const [index, setIndex] = useState(start);
     const limit = array.length;
 
@@ -18,9 +19,21 @@ export default function OutfitPiece({array, start, alt, isEditing} : PieceProps)
             <div className="flex">
                 {index > -1 && <img className="float-left" src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
                 <div className="float-right">
-                    <button className="float-left" onClick={() => {if (index - 1 < 0) {setIndex(limit - 1)} else {setIndex(index - 1)}}}>Previous</button>
+                    <button className="float-left" 
+                        onClick={() => {
+                            setIndex((index - 1) < 0 ? limit - 1 : (index - 1)); 
+                            onChange((index - 1) < 0 ? limit - 1 : (index - 1));
+                        }}
+                        >Previous
+                    </button>
                     <p>{index}</p>
-                    <button className="float-right" onClick={() => {if (index + 1 > limit) {setIndex(0)} else {setIndex(index + 1)}}}>Next</button>
+                    <button className="float-right" 
+                        onClick={() => {
+                            setIndex((index + 1) < 0 ? 0 : (index + 1)); 
+                            onChange((index + 1) < 0 ? 0 : (index + 1));
+                        }}
+                        >Next
+                    </button>
                 </div>
             </div>}
             {!isEditing && index > -1 && <img src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
