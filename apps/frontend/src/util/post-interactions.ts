@@ -17,11 +17,12 @@ export const useInteractWithPost = () => {
         }
     };
 
-    const leaveComment = async (_id: string, comment: string) => {
+    const leaveComment = async (_id: string, comment: string, parent?: string) => {
         try {
             const response = await axios.post('/comment/add', {
                 postId: _id,
                 comment: comment,
+                parent: parent
             });
             return response.status;
         } catch (error) {

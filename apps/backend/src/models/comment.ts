@@ -5,6 +5,7 @@ export interface IComment {
   author: string;
   comment: string;
   replies: string[];
+  parent?: string;
 }
 
 export const CommentSchema = new Schema<IComment>({
@@ -12,4 +13,5 @@ export const CommentSchema = new Schema<IComment>({
   author: { type: String, required: true },
   comment: { type: String, required: true },
   replies: { type: [String], required: true},
+  parent: { type: String, required: false },
 });
