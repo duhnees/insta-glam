@@ -99,5 +99,23 @@ export const useInteractWithPost = () => {
         }
     }
 
-    return {interactPost, leaveComment, makeNewPost, saveDraft};
+    const sendNotif = async (receiver: string, type: string, postId?: string, commentId?: string) => {
+        try {
+            const response = await axios.post('/notif/add', {
+                receiver: receiver,
+                postId: postId,
+                commentId: commentId,
+                type: type
+            });
+            return response.status;
+        } catch (error) {
+            // eslint-disable-next-line no-alert
+            alert(error.response.data.message);
+            return 500;
+        }
+    }
+
+
+
+    return {interactPost, leaveComment, makeNewPost, saveDraft, sendNotif};
 };

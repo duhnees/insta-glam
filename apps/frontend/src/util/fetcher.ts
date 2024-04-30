@@ -44,3 +44,16 @@ export async function fetchReplies(url: string, commentId: string) {
     return 500;
 }
 }
+
+export async function fetchNotifs(url: string, receiver: string) {
+  try {
+    const response = await axios.post(url, {
+        username: receiver,
+    });
+    return response.data;
+} catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(error.response.data.message);
+    return 500;
+}
+}

@@ -28,7 +28,7 @@ export default function RenderedComment({ author, comment, postId, commentId, is
                 {replies && replies.map(comment => (
                     <RenderedComment key={comment._id} author={comment.author} comment={comment.comment} postId={postId} commentId={comment._id} isReply={true} />
                 ))}
-                {replying && <CommentPopup onChange={setReplying} parent={commentId} postId={postId} />}
+                {replying && <CommentPopup onChange={setReplying} parent={commentId} postId={postId} receiver={author} />}
             </div>
         </div>
     );

@@ -5,13 +5,14 @@ import { useInteractWithPost } from "../util/post-interactions";
 interface CommProps {
     onChange: (boolean) => void,
     parent?: string,
-    postId: string
+    postId: string,
+    receiver: string
 }
 
 //TODO: make this not look like a popup and make it integrate w/ the background
-export default function CommentPopup({ onChange, parent, postId } : CommProps) {
+export default function CommentPopup({ onChange, parent, postId, receiver } : CommProps) {
     const [comment, setComment] = useState('');
-    const { leaveComment, interactPost } = useInteractWithPost();
+    const { leaveComment, interactPost, sendNotif } = useInteractWithPost();
     
     return (
         <div>
@@ -22,7 +23,12 @@ export default function CommentPopup({ onChange, parent, postId } : CommProps) {
                         onChange={(event) => setComment(event.target.value)}
                         placeholder="Leave a comment..."
                 />
-                <button onClick={() => {leaveComment(postId, comment, parent); interactPost(postId, false, true); onChange(false);}}>Comment</button>
+                <button onClick={() => {
+                    leaveComment(postId, comment, parent); 
+                    interactPost(postId, false, true);
+                    sendNotif(receiver, 'comment', postId); 
+                    onChange(false);
+                }}>Comment</button>
                 <button onClick={() => onChange(false)}>Cancel</button>
             </div>
         </div>
