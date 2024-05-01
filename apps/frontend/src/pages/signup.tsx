@@ -12,7 +12,7 @@ export default function SignupPage() {
 
     return (
         <div className="bg-pink-200 flex flex-col float-left p-6 fixed top-0 left-0 w-full h-full space-y-4">
-            <h1 className="font-serif text-4xl float-left"> 
+            <h1 className="text-4xl float-left font-semibold"> 
                 Sign Up </h1>
             <TextInput 
                 title='Username'
@@ -30,7 +30,7 @@ export default function SignupPage() {
             />
             <button
                 type="button"
-                className="btn w-[300px] h-10 bg-purple-500 rounded"
+                className="btn w-[300px] h-10 bg-purple-500 rounded text-white font-medium hover:bg-white hover:text-purple-500"
                 onClick={async () => {
                     try {
                         const response = await signupOrLogin('/account/signup', username, password);

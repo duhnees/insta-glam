@@ -6,8 +6,7 @@ export default function ProfilePage() {
     const { username } = useParams();
 
     return (
-        <div>
-            <h1>Profile Page</h1>
+        <div className="bg-pink-200 p-6 w-full min-h-screen h-full flex flex-col items-center justify-start">
             <Profile username={username} />
         </div>
     );

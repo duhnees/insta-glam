@@ -6,10 +6,18 @@ interface NotifProps {
     user: string
 }
 
+const messages = {
+    like: "liked your post!",
+    comment: "commented on your post!",
+    follow: "followed you!",
+    mention: "mentioned you!"
+}
+
 export default function NotifBar({ user }: NotifProps) {
     const { data: notifs } = useSWR(user ?
         [`/notif/getNotifs`, user] : null,
-        ([url, username]) => fetchNotifs(url, username)
+        ([url, username]) => fetchNotifs(url, username),
+        {refreshInterval: 2000}
     );
 
     const [open, setOpen] = useState(false);
@@ -17,14 +25,14 @@ export default function NotifBar({ user }: NotifProps) {
     return (
         <div className="max-w-[150px]">
             <button 
-                className="btn justify-right"
+                className="btn justify-right text-base font-semibold"
                 onClick={() => setOpen(!open)}>
                 Notifications
             </button>
             {open && (
                 <ul className="text-right">
-                {notifs && notifs.map(notif => (
-                    <li key={notif._id}>{notif.sender} {notif.type}ed your post</li>
+                {notifs && notifs.slice().reverse().map(notif => (
+                    <li key={notif._id} className="py-2">{notif.sender} {messages[notif.type]}</li>
                 ))}
                 </ul>
             )}

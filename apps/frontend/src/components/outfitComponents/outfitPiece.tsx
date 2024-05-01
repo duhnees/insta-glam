@@ -17,7 +17,7 @@ export default function OutfitPiece({array, start, alt, isEditing, onChange} : P
         <div>
             {isEditing && 
             <div className="flex">
-                {index > -1 && <img className="float-left" src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
+                {index > -1 && <img className="float-left img-fluid h-auto" src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
                 <div className="float-right">
                     <button className="float-left" 
                         onClick={() => {

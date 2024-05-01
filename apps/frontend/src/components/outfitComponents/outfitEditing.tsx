@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import data from "../assets/data.json";
+import data from "../../assets/data.json";
 import OutfitPiece from "./outfitPiece";
-import { OutfitContext } from "../pages/outfitPage";
+import { OutfitContext } from "../../pages/outfitPage";
 
 export default function OutfitEditing() {
     const { outfitValues, handleOutfitChange } = useContext(OutfitContext);

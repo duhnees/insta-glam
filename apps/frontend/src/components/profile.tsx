@@ -15,16 +15,22 @@ export default function Profile({ username }: ProfileProps) {
     return (
         <div>
             {userInfo &&
-                <div>
-                    <h2>{username}</h2>
-                    <p>{numFollowers} Followers</p>
-                    <p>{following.length - 1} Following</p>
-                    <h3>Posts</h3>
-                    <ul>
-                        {posts && posts.map(post => (
-                            <li key={post._id}>{post._id}</li>
-                        ))}
-                    </ul>
+                <div className="flex flex-col items-center justify-center w-full">
+                    <div className="flex space-x-8">
+                        <h1 className="text-2xl font-bold text-purple-500 mr-8">{username}</h1>
+                        <p>{numFollowers} Followers</p>
+                        <p>{following.length - 1} Following</p>
+                    </div>
+                    
+                    <div className="bg-white rounded w-full">
+                        <h2 className="text-xl font-semibold text-pink-400">Posts</h2>
+                        <ul>
+                            {posts && posts.map(post => (
+                                <li key={post._id}>{post._id}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    
                 </div>
             }
         </div>
