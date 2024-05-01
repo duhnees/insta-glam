@@ -5,7 +5,6 @@ import { fetchSinglePost } from "../util/fetcher";
 import { useInteractWithPost } from "../util/post-interactions";
 import OutfitEditing from "../components/outfitComponents/outfitEditing";
 
-
 const defaultValues = {
     caption: '',
     hat: -1,
@@ -26,37 +25,65 @@ export const OutfitContext = createContext({
 
 export default function OutfitPage() {
     const { postId } = useParams();
-    const { data: postInfo } = useSWR(postId ?
+    const { data: postInfoData } = useSWR(postId ?
         [`/post/getSinglePost`, postId] : null,
         ([url, id]) => fetchSinglePost(url, id),
-        {refreshInterval: 2000}
-        );
+        { refreshInterval: 2000 }
+    );
 
-    const [outfitValues, setOutfitValues] = useState(postInfo ? postInfo : defaultValues);
-    const {caption} = outfitValues;
-  
+    const [outfitValues, setOutfitValues] = useState(postInfoData || defaultValues);
+    const { caption } = outfitValues;
 
     const [currCaption, setCaption] = useState(caption);
     const navigate = useNavigate();
     const { makeNewPost, saveDraft } = useInteractWithPost();
 
     useEffect(() => {
-        if (postInfo) {
-        setOutfitValues({ ...postInfo });
-        setCaption(postInfo.caption);
+        if (postInfoData) {
+            setOutfitValues({ ...postInfoData });
+            setCaption(postInfoData.caption);
         }
-    }, [postInfo]);
+    }, [postInfoData]);
 
     const handleOutfitChange = (key, value) => {
-        setOutfitValues((prevValues) => ({
-            ...prevValues,
-            [key]: value
-        }));
+        setOutfitValues((prevValues) => {
+            const updatedValues = { ...prevValues, [key]: value };
+            return updatedValues;
+        });
+    };
+
+    const handleSaveDraft = async () => {
+        const responseStatus = postId ?
+            await saveDraft(postId, currCaption, outfitValues, true) :
+            await makeNewPost(currCaption, outfitValues, true);
+
+        if (responseStatus === 200) {
+            // Navigate to the appropriate page after saving draft
+            navigate('/');
+        } else {
+            // Handle error
+            console.error('Error saving draft');
+        }
+    };
+
+    const handlePost = async () => {
+        const responseStatus = postId ?
+            await saveDraft(postId, currCaption, outfitValues, false) :
+            await makeNewPost(currCaption, outfitValues, false);
+            console.log(outfitValues);
+
+        if (responseStatus === 200) {
+            // Navigate to the appropriate page after posting
+            navigate('/');
+        } else {
+            // Handle error
+            console.error('Error posting');
+        }
     };
 
     return (
-        <div className="bg-pink-200 p-6 w-full h-full flex justify-between min-h-screen">
-            <OutfitContext.Provider value={{outfitValues, handleOutfitChange}}>
+        <div className="bg-pink-200 py-6 px-20 w-full h-full flex justify-between min-h-screen">
+            <OutfitContext.Provider value={{ outfitValues, handleOutfitChange }}>
                 <OutfitEditing />
             </OutfitContext.Provider>
             <div className="float-right flex flex-col items-end p-4 space-y-4">
@@ -67,21 +94,21 @@ export default function OutfitPage() {
                     placeholder="Write a caption..."
                 />
                 <div className="space-x-8 justify-center">
-                    <button className="btn bg-purple-500 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded" 
-                            onClick={() => {makeNewPost(currCaption, outfitValues, false); navigate('/');}}
-                        >Post
+                    <button className="btn bg-purple-500 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded"
+                        onClick={handlePost}
+                    >Post
                     </button>
-                    <button className="btn bg-white hover:bg-pink-400 hover:text-white text-purple-500 font-bold py-2 px-4 rounded" 
-                            onClick={() => {postId ? saveDraft(postId, currCaption, outfitValues) : makeNewPost(currCaption, outfitValues, true); navigate('/')}}
-                        >Save as draft
+                    <button className="btn bg-white hover:bg-pink-400 hover:text-white text-purple-500 font-bold py-2 px-4 rounded"
+                        onClick={handleSaveDraft}
+                    >Save as draft
                     </button>
-                    <button className="btn bg-red-500 hover:bg-white text-white hover:text-red-500 font-bold py-2 px-4 rounded" 
-                            onClick={() => navigate('/')}
-                        >Close
+                    <button className="btn bg-red-500 hover:bg-white text-white hover:text-red-500 font-bold py-2 px-4 rounded"
+                        onClick={() => navigate('/')}
+                    >Close
                     </button>
                 </div>
             </div>
         </div>
     );
-
 }
+

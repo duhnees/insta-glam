@@ -44,9 +44,6 @@ export const useInteractWithPost = () => {
             accessory2: number | undefined;
         };
 
-        console.log('these are the inputs');
-        console.log(hat);
-
         try {
             const response = await axios.post('/post/add', {
                 draft: draft,
@@ -68,7 +65,7 @@ export const useInteractWithPost = () => {
         }
     }
 
-    const saveDraft = async (postId: string, caption: string, outfitData: unknown) => {
+    const saveDraft = async (postId: string, caption: string, outfitData: unknown, draft: boolean) => {
         const { hat, hair, face, top, pants, shoes, accessory1, accessory2 } = outfitData as {
             hat: number | undefined;
             hair: number | undefined;
@@ -83,16 +80,16 @@ export const useInteractWithPost = () => {
         try {
             const response = await axios.post('/post/edit', {
                 postId: postId,
-                draft: true,
+                draft: draft,
                 caption: caption,
-                ...(hat !== undefined && { hat }),
-                ...(hair !== undefined && { hair }),
+                hat: hat,
+                hair: hair,
                 face: face,
                 top: top,
                 pants: pants,
-                ...(shoes !== undefined && { shoes }),
-                ...(accessory1 !== undefined && { accessory1 }),
-                ...(accessory2 !== undefined && { accessory2 })
+                shoes: shoes,
+                accessory1: accessory1,
+                accessory2: accessory2,
             });
             return response.status;
         } catch (error) {

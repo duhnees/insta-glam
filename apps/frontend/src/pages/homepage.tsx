@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import NewPostButton from "../components/newPostComponents/newPostButton";
 import NotifBar from "../components/notificationBar";
@@ -29,15 +29,19 @@ export default function Homepage() {
             <div className="flex flex-col float-right">
                 {loggedIn && 
                     <div className="flex float-right space-x-4">
-                        <p>Hi, {user}!</p>
-                        <button className="btn text-purple-500 font-semibold" 
+                        <p>Hi,</p>
+                        <Link className="font-semibold text-purple-500" 
+                          to={`/profile/${user}`}
+                        >{user}
+                    </Link>
+                        <button className="btn bg-purple-500 text-white hover:bg-white hover:text-purple-500 rounded font-semibold px-2 py-1" 
                                 onClick={async () => logout()}
                             >Logout
                         </button>
                     </div>}
                 {!loggedIn && 
                     <div className="flex float-right">
-                        <button className="btn text-purple-500 font-semibold" 
+                        <button className="btn bg-purple-500 text-white hover:bg-white hover:text-purple-500 rounded font-semibold px-2 py-1" 
                                 onClick={async () => navigate('/login')}
                             >Login
                         </button>

@@ -14,30 +14,36 @@ export default function OutfitPiece({array, start, alt, isEditing, onChange, cla
     const [index, setIndex] = useState(start);
     const limit = array.length;
 
+    if (index === -1) {
+        setIndex(0);
+    }
+
     return (
-        <div>
+        <div className="flex space-x-4">
             {isEditing && 
-            <div className="flex">
+            <div className="flex space-x-4">
                 {(index > -1) && <img className={`float-left img-fluid h-auto ${className || ''}`} src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
                 <div className="float-right">
-                    <button className="float-left" 
-                        onClick={() => {
-                            setIndex((index - 1) < 0 ? limit - 1 : (index - 1)); 
-                            onChange((index - 1) < 0 ? limit - 1 : (index - 1));
-                        }}
-                        >Previous
-                    </button>
-                    <p>{index}</p>
-                    <button className="float-right" 
-                        onClick={() => {
-                            setIndex((index + 1) > limit - 1 ? 0 : (index + 1)); 
-                            onChange((index + 1) > limit - 1 ? 0 : (index + 1));
-                        }}
-                        >Next
-                    </button>
+                    <div className="flex space-x-4">
+                        <button className="btn bg-pink-400 rounded-full text-white font-bold float-left p-2" 
+                            onClick={() => {
+                                setIndex((index - 1) < 0 ? limit - 1 : (index - 1)); 
+                                onChange((index - 1) < 0 ? limit - 1 : (index - 1));
+                            }}
+                            >{'<'}
+                        </button>
+                        <p>{alt}</p>
+                        <button className="btn bg-pink-400 rounded-full text-white font-bold float-right p-2" 
+                            onClick={() => {
+                                setIndex((index + 1) > limit - 1 ? 0 : (index + 1)); 
+                                onChange((index + 1) > limit - 1 ? 0 : (index + 1));
+                            }}
+                            >{'>'}
+                        </button>
+                    </div>
                 </div>
             </div>}
-            {!isEditing && (index > -1) && <img className={`float-left img-fluid h-auto ${className || ''}`} src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
+            {!isEditing && (index > -1) && <img className={`float-left img-fluid ${className || ''}`} src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
         </div>
     );
 }

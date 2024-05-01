@@ -21,6 +21,10 @@ const getUSchema = z.object({
   username: z.string(),
 });
 
+const editSchema = z.object({
+  bio: z.string()
+})
+
 AuthRouter.post('/signup', async (req, res, next) => {
   const zodResult = signupSchema.safeParse(req.body);
   if (!zodResult.success) {
@@ -163,6 +167,29 @@ AuthRouter.post('/getUser', async (req, res, next) => {
     const user = await User.findOne({ username });
     if (user) {
       res.status(200).json(user);
+    } else {
+      next({ statusCode: 400, message: 'Current user does not exist!' });
+      return;
+    }
+    res.status(200).send('OK!');
+  } catch(err) {
+    next({ statusCode: 500, message: 'Server error!' });
+  }
+});
+
+AuthRouter.post('/edit', async (req, res, next) => {
+  const zodResult = editSchema.safeParse(req.body);
+  if (!zodResult.success) {
+    next({ statusCode: 400, message: 'Invalid input!' });
+    return;
+  }
+
+  try {
+    const { bio } = zodResult.data;
+    const user = await User.findOne({ username: req.session!.user });
+    if (user) {
+      user.bio = bio;
+      await user.save();
     } else {
       next({ statusCode: 400, message: 'Current user does not exist!' });
       return;

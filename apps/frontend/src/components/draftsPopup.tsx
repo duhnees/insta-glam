@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { fetcher } from "../util/fetcher";
 import { PopProps } from "./newPostComponents/newPostPopup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import ThumbnailPost from "./thumbnailPost";
 
 async function fetchDrafts(url, username) {
     try {
@@ -25,20 +25,20 @@ export default function DraftsPopup({ onChange } : PopProps) {
         ([url, username]) => fetchDrafts(url, username),
         {refreshInterval: 2000}
       );
-    const navigate = useNavigate();
 
     return (
         <div>
-             <div className="bg-white p-6 rounded-lg shadow-xl flex flex-col space-y-4 w-[600px] text-left items-center">
+             <div className="bg-white p-6 rounded-lg shadow-xl flex flex-col space-y-4 w-[600px] h-[500px] text-left items-center">
                 {drafts && drafts.length !== 0 && 
-                    <div>
+                    <div className="w-full h-[400px] overflow-y-auto">
                         <h3>Drafts</h3>
-                        <ul>
-                            {drafts.map(post => (
-                                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-                                <li key={post._id} onClick={() => navigate(`/outfit/${post._id}`)}>{post._id}</li>
+                        <div className="grid grid-cols-2 gap-2">
+                            {drafts && drafts.slice().reverse().map(post => (
+                                <div key={post._id} className="py-2">
+                                    <ThumbnailPost postId={post._id} editing={true} />
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>}
                 {drafts && drafts.length === 0 && 
                     <div>

@@ -1,10 +1,9 @@
 {
-    "hats": ["/hats/hat-1.png", "/hats/hat-2.png"],
-    "hairs": ["/hair/hair-1.png", "/hair/hair-1.png"],
+    "hats": ["/empty.png", "/hats/hat-1.png", "/hats/hat-2.png", "/hats/hat-3.png", "/hats/hat-4.png", "/hats/hat-5.png"],
+    "hairs": ["/empty.png", "/hair/hair-1.png", "/hair/hair-2.png", "/hair/hair-3.png", "/hair/hair-4.png", "/hair/hair-5.png"],
     "faces": ["/faces/face-1.png", "/faces/face-2.png", "/faces/face-3.png", "/faces/face-4.png", "/faces/face-5.png"],
     "tops": ["/tops/top-1.png", "/tops/top-2.png", "/tops/top-3.png", "/tops/top-4.png", "/tops/top-5.png"],
-    "pants": ["/pants/pant-1.png", "/pants/pant-2.png"],
-    "shoes": [],
-    "acc1s": [],
-    "acc2s": []
+    "pants": ["/pants/pant-1.png", "/pants/pant-2.png", "/pants/pant-3.png", "/pants/pant-4.png", "/pants/pant-5.png"],
+    "shoes": ["/empty.png", "/shoes/shoe-1.png", "/shoes/shoe-2.png", "/shoes/shoe-3.png", "/shoes/shoe-4.png", "/shoes/shoe-5.png"],
+    "accs": ["/empty.png", "/accessories/acc-1.png", "/accessories/acc-2.png", "/accessories/acc-3.png", "/accessories/acc-4.png", "/accessories/acc-5.png"]
 }

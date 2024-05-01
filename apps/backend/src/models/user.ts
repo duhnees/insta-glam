@@ -6,6 +6,7 @@ export interface IUser {
   salt: string;
   numFollowers: number;
   following: string[];
+  bio: string;
 }
 
 export const UserSchema = new Schema<IUser>({
@@ -13,5 +14,6 @@ export const UserSchema = new Schema<IUser>({
   password: { type: String, required: true },
   salt: { type: String, required: true },
   numFollowers: { type: Number, required: true },
-  following: { type: [String], required: true }
+  following: { type: [String], required: true },
+  bio: { type: String, required: false}
 });

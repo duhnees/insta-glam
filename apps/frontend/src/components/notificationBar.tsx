@@ -1,14 +1,15 @@
 import useSWR from "swr";
 import { fetchNotifs } from "../util/fetcher";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface NotifProps {
     user: string
 }
 
 const messages = {
-    like: "liked your post!",
-    comment: "commented on your post!",
+    like: "liked your",
+    comment: "commented on your",
     follow: "followed you!",
     mention: "mentioned you!"
 }
@@ -30,9 +31,20 @@ export default function NotifBar({ user }: NotifProps) {
                 Notifications
             </button>
             {open && (
-                <ul className="text-right">
+                <ul>
                 {notifs && notifs.slice().reverse().map(notif => (
-                    <li key={notif._id} className="py-2">{notif.sender} {messages[notif.type]}</li>
+                    <div key={notif._id} className="rounded border-2 p-2">
+                            <Link className="font-semibold text-purple-500" 
+                                    to={`/profile/${notif.sender}`}
+                                >{notif.sender}
+                            </Link>
+                            <p>{messages[notif.type]}</p>
+                            {(notif.type === 'like' || notif.type === 'comment') && 
+                            <Link className="font-semibold text-purple-500" 
+                                    to={`/post/${notif.postId}`}
+                                >{'post!'}
+                            </Link>}
+                    </div>
                 ))}
                 </ul>
             )}

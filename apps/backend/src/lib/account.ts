@@ -10,13 +10,15 @@ export async function createUser(username: string, password: string) {
   const salt = await bcrypt.genSalt();
   const numFollowers = 0;
   const following = [username];
+  const bio = '';
   
   const newUser = new User({
     username,
     password: await bcrypt.hash(password, salt),
     salt,
     numFollowers,
-    following
+    following,
+    bio
   });
 
   await newUser.save();

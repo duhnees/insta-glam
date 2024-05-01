@@ -70,7 +70,7 @@ export default function SinglePost({ postId, loggedIn }: PostProps) {
                     </div>
                 </div>
                 <div className="float-right">
-                    <OutfitComplete hat={hat} hair={hair} face={face} top={top} pants={pants} shoes={shoes} accessory1={accessory1} accessory2={accessory2} />
+                    <OutfitComplete hat={hat} hair={hair} face={face} top={top} pants={pants} shoes={shoes} accessory1={accessory1} accessory2={accessory2} isThumbnail={false} />
                 </div>
             </div> }
         </div>
