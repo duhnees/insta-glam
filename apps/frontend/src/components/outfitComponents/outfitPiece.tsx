@@ -6,10 +6,11 @@ interface PieceProps {
     start: number,
     alt: string,
     isEditing: boolean,
-    onChange?: (value: number) => void
+    onChange?: (value: number) => void,
+    className: string
 }
 
-export default function OutfitPiece({array, start, alt, isEditing, onChange} : PieceProps) {
+export default function OutfitPiece({array, start, alt, isEditing, onChange, className} : PieceProps) {
     const [index, setIndex] = useState(start);
     const limit = array.length;
 
@@ -17,7 +18,7 @@ export default function OutfitPiece({array, start, alt, isEditing, onChange} : P
         <div>
             {isEditing && 
             <div className="flex">
-                {index > -1 && <img className="float-left img-fluid h-auto" src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
+                {(index > -1) && <img className={`float-left img-fluid h-auto ${className || ''}`} src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
                 <div className="float-right">
                     <button className="float-left" 
                         onClick={() => {
@@ -36,7 +37,7 @@ export default function OutfitPiece({array, start, alt, isEditing, onChange} : P
                     </button>
                 </div>
             </div>}
-            {!isEditing && index > -1 && <img src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
+            {!isEditing && (index > -1) && <img className={`float-left img-fluid h-auto ${className || ''}`} src={`http://localhost:8000/assets${array[index]}`} alt={alt} />}
         </div>
     );
 }

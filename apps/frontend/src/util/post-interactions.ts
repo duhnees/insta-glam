@@ -44,18 +44,21 @@ export const useInteractWithPost = () => {
             accessory2: number | undefined;
         };
 
+        console.log('these are the inputs');
+        console.log(hat);
+
         try {
             const response = await axios.post('/post/add', {
                 draft: draft,
                 caption: caption,
-                ...(hat !== undefined && { hat }),
-                ...(hair !== undefined && { hair }),
+                hat: hat,
+                hair: hair,
                 face: face,
                 top: top,
                 pants: pants,
-                ...(shoes !== undefined && { shoes }),
-                ...(accessory1 !== undefined && { accessory1 }),
-                ...(accessory2 !== undefined && { accessory2 })
+                shoes: shoes,
+                accessory1: accessory1,
+                accessory2: accessory2,
             });
             return response.status;
         } catch (error) {

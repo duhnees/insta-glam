@@ -42,8 +42,8 @@ export default function OutfitPage() {
 
     useEffect(() => {
         if (postInfo) {
-          setOutfitValues(postInfo);
-          setCaption(postInfo.caption);
+        setOutfitValues({ ...postInfo });
+        setCaption(postInfo.caption);
         }
     }, [postInfo]);
 
@@ -68,7 +68,7 @@ export default function OutfitPage() {
                 />
                 <div className="space-x-8 justify-center">
                     <button className="btn bg-purple-500 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded" 
-                            onClick={() => {makeNewPost(currCaption, outfitValues, false); navigate('/')}}
+                            onClick={() => {makeNewPost(currCaption, outfitValues, false); navigate('/');}}
                         >Post
                     </button>
                     <button className="btn bg-white hover:bg-pink-400 hover:text-white text-purple-500 font-bold py-2 px-4 rounded" 
