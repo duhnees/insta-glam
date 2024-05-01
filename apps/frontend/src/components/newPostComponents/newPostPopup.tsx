@@ -11,7 +11,7 @@ export default function NewPostPopup({ onChange } : PopProps) {
     const navigate = useNavigate();
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
             {!draftClicked && 
             <div className="bg-white p-6 rounded-lg shadow-xl flex flex-col space-y-4 w-[600px] text-left">
                 <div className="flex justify-between">

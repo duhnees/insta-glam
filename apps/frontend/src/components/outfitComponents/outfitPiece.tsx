@@ -30,8 +30,8 @@ export default function OutfitPiece({array, start, alt, isEditing, onChange, cla
                     <p>{index}</p>
                     <button className="float-right" 
                         onClick={() => {
-                            setIndex((index + 1) < 0 ? 0 : (index + 1)); 
-                            onChange((index + 1) < 0 ? 0 : (index + 1));
+                            setIndex((index + 1) > limit - 1 ? 0 : (index + 1)); 
+                            onChange((index + 1) > limit - 1 ? 0 : (index + 1));
                         }}
                         >Next
                     </button>

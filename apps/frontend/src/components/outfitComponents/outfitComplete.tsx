@@ -19,14 +19,14 @@ export default function OutfitComplete({hat, hair, face, top, pants, shoes, acce
     return(
         <div className="relative">
             <img className="float-left img-fluid h-auto top-0 left-0 z-0" src={`http://localhost:8000/assets/body.png`} alt="body" />
-            <OutfitPiece array={hats} start={hat} alt="Hat" isEditing={false} className="absolute top-0 left-0 z-10" />
-            <OutfitPiece array={hairs} start={hair} alt="Hair" isEditing={false} className="absolute top-0 left-0 z-20" />
-            <OutfitPiece array={faces} start={face} alt="Face" isEditing={false} className="absolute top-0 left-0 z-30" />
-            <OutfitPiece array={tops} start={top} alt="Top" isEditing={false} className="absolute top-0 left-0 z-40" />
-            <OutfitPiece array={pantsData} start={pants} alt="Pants" isEditing={false} className="absolute top-0 left-0 z-50" />
-            <OutfitPiece array={shoesData} start={shoes} alt="Shoes" isEditing={false} className="absolute top-0 left-0 z-60" />
-            <OutfitPiece array={acc1s} start={accessory1} alt="Accessory 1" isEditing={false} className="absolute top-0 left-0 z-70" />
-            <OutfitPiece array={acc2s} start={accessory2} alt="Accessory 2" isEditing={false} className="absolute top-0 left-0 z-80" />
+            <OutfitPiece array={hats} start={hat} alt="Hat" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={hairs} start={hair} alt="Hair" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={faces} start={face} alt="Face" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={tops} start={top} alt="Top" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={pantsData} start={pants} alt="Pants" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={shoesData} start={shoes} alt="Shoes" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={acc1s} start={accessory1} alt="Accessory 1" isEditing={false} className="absolute top-0 left-0 z-0" />
+            <OutfitPiece array={acc2s} start={accessory2} alt="Accessory 2" isEditing={false} className="absolute top-0 left-0 z-0" />
         </div>
     );
 

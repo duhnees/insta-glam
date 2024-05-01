@@ -55,7 +55,7 @@ export default function OutfitPage() {
     };
 
     return (
-        <div className="bg-pink-200 p-6 w-full h-full flex justify-between">
+        <div className="bg-pink-200 p-6 w-full h-full flex justify-between min-h-screen">
             <OutfitContext.Provider value={{outfitValues, handleOutfitChange}}>
                 <OutfitEditing />
             </OutfitContext.Provider>
