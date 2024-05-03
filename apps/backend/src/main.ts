@@ -1,14 +1,14 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import path from 'path';
+import { errorHandler } from './middlewares/error-handler';
+import { requireAuth } from './middlewares/require-auth';
 import AuthRouter from './routes/account';
 import CRouter from './routes/comments';
 import NRouter from './routes/notifications';
-import { requireAuth } from './middlewares/require-auth';
 import PRouter from './routes/posts';
-import { errorHandler } from './middlewares/error-handler';
-import path from 'path';
 
 
 // read environment variables from .env file

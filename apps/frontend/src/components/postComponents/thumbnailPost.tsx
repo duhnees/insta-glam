@@ -1,9 +1,9 @@
 
 import useSWR from "swr";
-import { fetchSinglePost } from "../util/fetcher";
+import { fetchSinglePost } from "../../util/fetcher";
 
-import OutfitComplete from "./outfitComponents/outfitComplete";
 import { useNavigate } from "react-router-dom";
+import OutfitComplete from "../outfitComponents/outfitComplete";
 
 interface PostProps {
     postId: string,
@@ -19,7 +19,6 @@ export default function ThumbnailPost({ postId, editing }: PostProps) {
         ([url, id]) => fetchSinglePost(url, id),
         {refreshInterval: 2000}
       );
-    // const {hat, hair, face, top, pants, shoes, accessory1, accessory2} = postInfo || {};
 
     const navigateString = editing ? `/outfit/${postId}` : `/post/${postId}`
 

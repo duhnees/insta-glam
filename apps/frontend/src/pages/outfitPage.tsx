@@ -1,9 +1,9 @@
-import { useState, createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
+import OutfitEditing from "../components/outfitComponents/outfitEditing";
 import { fetchSinglePost } from "../util/fetcher";
 import { useInteractWithPost } from "../util/post-interactions";
-import OutfitEditing from "../components/outfitComponents/outfitEditing";
 
 const defaultValues = {
     caption: '',
@@ -52,34 +52,6 @@ export default function OutfitPage() {
         });
     };
 
-    const handleSaveDraft = async () => {
-        const responseStatus = postId ?
-            await saveDraft(postId, currCaption, outfitValues, true) :
-            await makeNewPost(currCaption, outfitValues, true);
-
-        if (responseStatus === 200) {
-            // Navigate to the appropriate page after saving draft
-            navigate('/');
-        } else {
-            // Handle error
-            console.error('Error saving draft');
-        }
-    };
-
-    const handlePost = async () => {
-        const responseStatus = postId ?
-            await saveDraft(postId, currCaption, outfitValues, false) :
-            await makeNewPost(currCaption, outfitValues, false);
-            console.log(outfitValues);
-
-        if (responseStatus === 200) {
-            // Navigate to the appropriate page after posting
-            navigate('/');
-        } else {
-            // Handle error
-            console.error('Error posting');
-        }
-    };
 
     return (
         <div className="bg-pink-200 py-6 px-20 w-full h-full flex justify-between min-h-screen">
@@ -95,11 +67,17 @@ export default function OutfitPage() {
                 />
                 <div className="space-x-8 justify-center">
                     <button className="btn bg-purple-500 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded"
-                        onClick={handlePost}
+                        onClick={async () => {
+                            postId ? await saveDraft(postId, currCaption, outfitValues, false) : await makeNewPost(currCaption, outfitValues, false);
+                            navigate('/');
+                        }}
                     >Post
                     </button>
                     <button className="btn bg-white hover:bg-pink-400 hover:text-white text-purple-500 font-bold py-2 px-4 rounded"
-                        onClick={handleSaveDraft}
+                        onClick={async () => {
+                            postId ? await saveDraft(postId, currCaption, outfitValues, true) : await makeNewPost(currCaption, outfitValues, true);
+                            navigate('/');
+                        }}
                     >Save as draft
                     </button>
                     <button className="btn bg-red-500 hover:bg-white text-white hover:text-red-500 font-bold py-2 px-4 rounded"

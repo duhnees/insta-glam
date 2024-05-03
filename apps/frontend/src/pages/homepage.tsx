@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import NewPostButton from "../components/newPostComponents/newPostButton";
 import NotifBar from "../components/notificationBar";
-import SinglePost from "../components/singlePost";
+import SinglePost from "../components/postComponents/singlePost";
 import { fetcher } from "../util/fetcher";
 import { useLogout } from "../util/logout";
 import { poster } from "../util/poster";
@@ -35,7 +35,7 @@ export default function Homepage() {
                         >{user}
                     </Link>
                         <button className="btn bg-purple-500 text-white hover:bg-white hover:text-purple-500 rounded font-semibold px-2 py-1" 
-                                onClick={async () => logout()}
+                                onClick={async () => {logout(); navigate('/login')}}
                             >Logout
                         </button>
                     </div>}

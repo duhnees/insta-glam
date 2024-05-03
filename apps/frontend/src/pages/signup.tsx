@@ -1,6 +1,6 @@
 import { useState } from "react";
-import TextInput from "../components/textInput";
 import { Link, useNavigate } from "react-router-dom";
+import TextInput from "../components/textInput";
 import { useSignUpLogin } from "../util/signup-login";
 
 

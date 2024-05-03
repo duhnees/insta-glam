@@ -2,8 +2,8 @@ import bcrypt from 'bcrypt';
 import express from 'express';
 import z from 'zod';
 import { createUser } from '../lib/account';
-import { User } from '../models';
 import { requireAuth } from '../middlewares/require-auth';
+import { User } from '../models';
 
 const AuthRouter = express.Router();
 
@@ -83,7 +83,7 @@ AuthRouter.post('/logout', requireAuth, async (req, res, next) => {
   }
 });
 
-//returns current user logged in
+//Returns current user logged in
 AuthRouter.get('', async (req, res, next) => {
   if (req.session && req.session.user && req.session.user.trim() !== '') {
     res.status(200).send(req.session.user);
@@ -154,7 +154,7 @@ AuthRouter.post('/unfollow', async (req, res, next) => {
     }
 });
 
-//get profile information based on username
+//Get profile information based on username
 AuthRouter.post('/getUser', async (req, res, next) => {
   const zodResult = getUSchema.safeParse(req.body);
   if (!zodResult.success) {
@@ -177,6 +177,7 @@ AuthRouter.post('/getUser', async (req, res, next) => {
   }
 });
 
+//Edit bio
 AuthRouter.post('/edit', async (req, res, next) => {
   const zodResult = editSchema.safeParse(req.body);
   if (!zodResult.success) {

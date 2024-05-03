@@ -1,10 +1,10 @@
-import useSWR from 'swr';
-import { poster } from '../util/poster';
-import { fetcher } from '../util/fetcher';
-import { useUserInteractions } from '../util/user-interactions';
 import { useState } from 'react';
-import { useInteractWithPost } from '../util/post-interactions';
-import ThumbnailPost from './thumbnailPost';
+import useSWR from 'swr';
+import { fetcher } from '../../util/fetcher';
+import { useInteractWithPost } from '../../util/post-interactions';
+import { poster } from '../../util/poster';
+import { useUserInteractions } from '../../util/user-interactions';
+import ThumbnailPost from '../postComponents/thumbnailPost';
 import BioEditor from './bioEditor';
 
 interface ProfileProps {

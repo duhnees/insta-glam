@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import data from "../../assets/data.json";
-import OutfitPiece from "./outfitPiece";
 import { OutfitContext } from "../../pages/outfitPage";
+import OutfitPiece from "./outfitPiece";
 
 export default function OutfitEditing() {
 

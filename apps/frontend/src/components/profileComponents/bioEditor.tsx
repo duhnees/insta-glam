@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserInteractions } from "../util/user-interactions";
+import { useUserInteractions } from "../../util/user-interactions";
 
 interface BioProps {
     bio: string,

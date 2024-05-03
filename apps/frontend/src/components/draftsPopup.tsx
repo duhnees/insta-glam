@@ -1,22 +1,8 @@
 import useSWR from "swr";
-import { fetcher } from "../util/fetcher";
+import { fetchDrafts, fetcher } from "../util/fetcher";
 import { PopProps } from "./newPostComponents/newPostPopup";
-import axios from "axios";
-import ThumbnailPost from "./thumbnailPost";
+import ThumbnailPost from "./postComponents/thumbnailPost";
 
-async function fetchDrafts(url, username) {
-    try {
-        const response = await axios.post(url, {
-            username: username,
-            draft: true
-        });
-        return response.data;
-    } catch (error) {
-        // eslint-disable-next-line no-alert
-        alert(error.response.data.message);
-        return 500;
-    }
-  }
 
 export default function DraftsPopup({ onChange } : PopProps) {
     const {data: user} = useSWR('/account', fetcher);

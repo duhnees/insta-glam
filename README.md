@@ -1,6 +1,7 @@
 # InstaGlam!!!!!!
 
-This uses the exact same structure as hw7. Env files for the database info will be submitted on canvas.
+This uses the exact same structure as hw7, so setup should be the same. 
+Env file for the database info will be submitted on canvas if you want it!
 
 # Development
 

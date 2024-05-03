@@ -1,7 +1,7 @@
-import useSWR from "swr";
-import { fetchNotifs } from "../util/fetcher";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
+import { fetchNotifs } from "../util/fetcher";
 
 interface NotifProps {
     user: string

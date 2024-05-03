@@ -5,7 +5,6 @@ export async function fetcher(url: string) {
   return response;
 }
 
-//TODO: these two do the exact same thing. need to combine them
 export async function fetchSinglePost(url: string, postId: string) {
   try {
       const response = await axios.post(url, {
@@ -56,4 +55,17 @@ export async function fetchNotifs(url: string, receiver: string) {
     alert(error.response.data.message);
     return 500;
 }
+}
+export async function fetchDrafts(url, username) {
+    try {
+        const response = await axios.post(url, {
+            username: username,
+            draft: true
+        });
+        return response.data;
+    } catch (error) {
+        // eslint-disable-next-line no-alert
+        alert(error.response.data.message);
+        return 500;
+    }
 }

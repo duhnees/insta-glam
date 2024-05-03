@@ -1,9 +1,9 @@
 
 import express from 'express';
 import z from 'zod';
-import { Notification } from '../models';
 import { createNotif } from '../lib/notification';
 import { requireAuth } from '../middlewares/require-auth';
+import { Notification } from '../models';
 
 
 const NRouter = express.Router();
@@ -37,7 +37,7 @@ NRouter.post('/add', requireAuth, async (req, res, next) => {
     }
 });
 
-//get all notifications of a specific user
+//Get all notifications of a specific user
 NRouter.post('/getNotifs', async (req, res, next) => {
   const zodResult = getNSchema.safeParse(req.body);
   if (!zodResult.success) {

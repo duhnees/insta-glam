@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useSWR from "swr";
-import { fetchSinglePost } from "../util/fetcher";
-import { useInteractWithPost } from "../util/post-interactions";
-import CommentPopup from "./commentComponentss/commentPopup";
-import RenderedComment from "./commentComponentss/renderedComment";
-import OutfitComplete from "./outfitComponents/outfitComplete";
+import { fetchSinglePost } from "../../util/fetcher";
+import { useInteractWithPost } from "../../util/post-interactions";
+import CommentPopup from "../commentComponentss/commentPopup";
+import RenderedComment from "../commentComponentss/renderedComment";
+import OutfitComplete from "../outfitComponents/outfitComplete";
 
 interface PostProps {
     postId: string;

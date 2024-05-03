@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import SinglePost from "../components/singlePost";
+import SinglePost from "../components/postComponents/singlePost";
 
 export default function ProfilePage() {
     

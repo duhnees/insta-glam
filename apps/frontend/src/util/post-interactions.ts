@@ -114,8 +114,5 @@ export const useInteractWithPost = () => {
             return 500;
         }
     }
-
-
-
     return {interactPost, leaveComment, makeNewPost, saveDraft, sendNotif};
 };

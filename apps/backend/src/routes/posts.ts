@@ -1,8 +1,8 @@
 import express from 'express';
 import z from 'zod';
 import { createPost } from '../lib/post';
-import { Post, User } from '../models';
 import { requireAuth } from '../middlewares/require-auth';
+import { Post, User } from '../models';
 
 
 const PRouter = express.Router();
@@ -66,7 +66,6 @@ PRouter.post('/add', requireAuth, async (req, res, next) => {
     }
 });
 
-//editing a post when it is in draft mode
 PRouter.post('/edit', requireAuth, async (req, res, next) => {
     const zodResult = editPSchema.safeParse(req.body);
     if (!zodResult.success) {
@@ -98,7 +97,7 @@ PRouter.post('/edit', requireAuth, async (req, res, next) => {
 });
 
 
-//liking or commenting on a post
+//Liking or commenting on a post
 PRouter.post('/interact', requireAuth, async (req, res, next) => {
     const zodResult = interactPSchema.safeParse(req.body);
     if (!zodResult.success) {
@@ -123,7 +122,7 @@ PRouter.post('/interact', requireAuth, async (req, res, next) => {
     }
 });
 
-//get all posts made by a specific user
+//Get all posts made by a specific user
 PRouter.post('/getPostsByUser', async (req, res, next) => {
   const zodResult = getPSchema.safeParse(req.body);
   if (!zodResult.success) {
@@ -141,7 +140,7 @@ PRouter.post('/getPostsByUser', async (req, res, next) => {
   }
 });
 
-//get all posts made by a user's following
+//Get all posts made by a user's following
 PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
     const zodResult = getPSchema.safeParse(req.body);
     if (!zodResult.success) {
@@ -164,7 +163,7 @@ PRouter.post('/getPostsFromFollowing', async (req, res, next) => {
     }
 });
 
-//get all posts globally
+//Get all posts globally
 PRouter.get('', async (req, res, next) => {
     try {
       const posts = await Post.find({draft: false});
@@ -174,7 +173,7 @@ PRouter.get('', async (req, res, next) => {
     }
 });
 
-//get single post based on PostId
+//Get single post based on PostId
 PRouter.post('/getSinglePost', async (req, res, next) => {
   const zodResult = getSinglePSchema.safeParse(req.body);
   if (!zodResult.success) {

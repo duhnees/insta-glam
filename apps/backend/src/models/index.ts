@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { IUser, UserSchema } from './user';
-import { IPost, PostSchema } from './post';
 import { CommentSchema, IComment } from './comment';
 import { INotif, NotifSchema } from './notification';
+import { IPost, PostSchema } from './post';
+import { IUser, UserSchema } from './user';
 
 export const User = mongoose.model<IUser>('User', UserSchema);
 export const Post = mongoose.model<IPost>('Post', PostSchema);
